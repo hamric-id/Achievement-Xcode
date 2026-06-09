@@ -10,14 +10,22 @@ import Foundation
 class DIContainer {
     static let shared = DIContainer()
     
-
+    private let apiClient: APIClientProtocol
+    
+    private let repository: DataRepositoryProtocol
+    private let fetchDataUseCase: FetchDataUseCaseProtocol
+    
     
     private init() {
-
+        self.apiClient = APIClient()
+        
+        self.repository = DataRepository(apiClient: apiClient)
+        self.fetchDataUseCase = FetchDataUseCase(repository: repository)
+        
     }
     
     
     func makeDataViewModel() -> ContentViewModel {
-        return ContentViewModel()
+        return ContentViewModel(fetchDataUseCase: fetchDataUseCase)
     }
 }

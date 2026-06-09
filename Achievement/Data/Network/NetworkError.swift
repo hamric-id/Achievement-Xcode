@@ -1,7 +1,6 @@
 //
 //  NetworkError.swift
-//  TestNBS
-//
+
 //  Created by Muhammad Hamzah Robbani on 09/06/26.
 //
 import Foundation
