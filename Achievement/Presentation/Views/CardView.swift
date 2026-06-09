@@ -71,9 +71,9 @@ struct CardView: View {
                 }
                 .frame(height: 32)
                 .frame(maxWidth: .infinity)
-                .background(Color(.systemGray6)) // Use system color instead of .dark2
+                .background(Color(.systemGray6)) 
             }
-            .buttonStyle(PlainButtonStyle()) // Removes default button styling
+            .buttonStyle(PlainButtonStyle())
             
             
         }
