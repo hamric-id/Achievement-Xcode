@@ -22,13 +22,32 @@ class ContentViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     var filteredItems: [Achievement] {
-            if searchText.isEmpty {
-                return items
-            } else {
-                return items.filter { item in
-                    item.label.localizedCaseInsensitiveContains(searchText) ||
-                    item.type.localizedCaseInsensitiveContains(searchText)
-                }
+        if searchText.isEmpty {
+            return items
+        } else {
+            return items.filter { item in
+                item.label.localizedCaseInsensitiveContains(searchText) ||
+                item.type.localizedCaseInsensitiveContains(searchText)
             }
         }
+    }
+    
+    private let fetchDataUseCase: FetchDataUseCaseProtocol
+
+    init(fetchDataUseCase: FetchDataUseCaseProtocol) {
+        self.fetchDataUseCase = fetchDataUseCase
+    }
+    
+    func fetchData() async {
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            items = try await fetchDataUseCase.execute()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        
+        isLoading = false
+    }
 }

@@ -30,13 +30,13 @@ struct ContentView: View {
                 }
                 .navigationTitle("Dashboard")
                 .refreshable {
-                    //must be fecth data in viewmodel
+                    await viewModel.fetchData()
                 }
             }
             
         }
         .task {
-            //must be fecth data in viewmodel
+            await viewModel.fetchData()
         }
     }
     
@@ -73,7 +73,9 @@ struct ContentView: View {
             Text(error)
                 .multilineTextAlignment(.center)
             Button("Retry") {
-                //must be fecth data in viewmodel
+                Task{
+                    await viewModel.fetchData()
+                }
             }
             .buttonStyle(.borderedProminent)
         }
